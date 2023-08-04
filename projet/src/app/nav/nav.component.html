@@ -1,0 +1,77 @@
+<!-- <div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="bg-dark col-auto col-md-4 col-lg-3 min-vh-100 d-flex flex-column justify-content-between">
+            <div class="bg-dark p-2">
+                <a class="d-flex mt-1 text-decoration-none align-items-center text-white">
+                    <span class="fs-4 d-none d-sm-inline">SideMenu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mt-4">
+                    <li class="nav-item py-2 py-sm-0">
+                        <a routerLinkActive="active" [routerLink]="[{outlets:{main:'profil'}}]" [queryParamsHandling]="'preserve'" (click)="navigateTo('profil')" class="nav-link text-white">
+                            <i class="ms-3 fs-5 fa-guage"></i>
+                            <span class="fs-4 d-none d-sm-inline">Profil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item py-2 py-sm-0">
+                        <a routerLinkActive="active" [routerLink]="[{outlets:{main:'article'}}]" [queryParamsHandling]="'preserve'" (click)="navigateTo('article')" class="nav-link text-white">
+                            <i class="ms-3 fs-5 fa-guage"></i>
+                            <span class="fs-4 d-none d-sm-inline">Articles</span>
+                        </a>
+                    </li>
+                    <li class="nav-item py-2 py-sm-0">
+                        <a routerLinkActive="active" [routerLink]="[{outlets:{main:'categorie'}}]" [queryParamsHandling]="'preserve'" (click)="navigateTo('categorie')" class="nav-link text-white">
+                            <i class="ms-3 fs-5 fa fa-table-list"></i>
+                            <span class="fs-4 d-none d-sm-inline">Categories</span>
+                        </a>
+                    </li>
+                    <li class="nav-item py-2 py-sm-0">
+                        <a (click)="logout()" class="nav-link text-white">
+                            <i class="ms-3 fs-5 fa-table-list"></i>
+                            <span class="fs-4 d-none d-sm-inline">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col">
+            <router-outlet name="main"></router-outlet>
+        </div>
+    </div>
+</div> -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" (click)="navigateTo('home')">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="isUser" (click)="navigateTo('panier')">Panier({{q}})</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="isAdmin" (click)="navigateTo('profil')">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="isAdmin" (click)="navigateTo('articles')">Articles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="isAdmin" (click)="navigateTo('categories')">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="isAdmin" (click)="navigateTo('commande')">Commandes</a>
+          </li>
+        </ul>
+        <!-- <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+        <button class="btn btn-outline-success" *ngIf="!isLogged" type="button" routerLink="login">Login</button>
+        <button class="btn btn-outline-success" *ngIf="isLogged" type="button" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>

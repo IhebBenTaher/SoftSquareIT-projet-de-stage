@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container justify-content-center d-flex">
+        <form class="card bg-secondary text-white p-5 " [formGroup]="fg" (ngSubmit)="submit()">
+            <label class="form-label">Name:</label>
+            <input [ngClass]="{'is-invalid':name.dirty && name.invalid}" class="form-control mt-1 mb-3" formControlName="name"/>
+            <label class="form-label">Description:</label>
+            <input [ngClass]="{'is-invalid':description.dirty && description.invalid}" class="form-control mt-1 mb-3" formControlName="description"/>
+            <label class="form-label">Price:</label>
+            <input type="number" [ngClass]="{'is-invalid':price.dirty && price.invalid}" class="form-control mt-1 mb-3" formControlName="price"/>
+            <label *ngIf="new" class="form-label">Image:</label>
+            <input [ngClass]="{'is-invalid':image.dirty && image.invalid}" *ngIf="new" class="form-control mt-1 mb-3" (change)="onFileSelected($event)" multiple type="file" accept="image/jpeg" formControlName="image"/>
+            <div class="row justify-content-between d-flex p-3">
+                <button [disabled]="fg.invalid" class="btn btn-light col-5">{{new?'Add':'Edit'}}</button>
+                <button class="btn btn-light col-5" routerLink="/accueil" type="button">Back</button>
+            </div>
+        </form>
+    </div>
+</div>

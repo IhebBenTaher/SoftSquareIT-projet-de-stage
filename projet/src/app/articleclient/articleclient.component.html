@@ -1,0 +1,43 @@
+
+<div class="card mb-3 mt-5" style="max-width: 540px;margin:auto;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="http://localhost/images/{{tab.image}}" style="height: 100%;" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{tab.name}}</h5>
+          <p class="card-text">{{tab.description}}</p>
+          <div [innerHTML]="sanitizeHtml(tab.fulldescription)"></div>
+          <p class="card-text"><small class="text-muted">{{tab.price}}</small></p>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ajoutPanier(tab.name,tab.price,tab.image)">Ajouter au panier</button>
+          <button class="btn btn-primary mx-3" (click)="navigateTo(tab.categorie.id)">Retour</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- <img *ngFor="let p of tab.images.split(',')" src="http://localhost/images/{{p}}"/> -->
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Add to Cart
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Article successfully added to cart!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

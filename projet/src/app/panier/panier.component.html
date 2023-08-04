@@ -1,0 +1,59 @@
+<table class="table my-5">
+    <thead>
+      <tr>
+        <th>Article</th>
+        <th>Image</th>
+        <th>Prix unitaire</th>
+        <th>Quantité</th>
+        <th>Action</th>
+        <th>Prix total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of tab">
+        <td>{{p.name}}</td>
+        <td><img src="http://localhost/images/{{p.image}}" style="width: 85px;height: 85px;"/></td>
+        <td>{{p.price}}</td>
+        <td><div class="input-group me-3 js-productQuantity">
+            <button (click)="dec(p)" type="button" class="btn btn-secondary">-<!-- <i 
+              class="bi-dash-circle"></i> --></button>
+            <input type="text" class="form-control text-center" 
+              [value]="p.quantity" aria-label="Product quantity">
+            <button (click)="inc(p)" type="button" class="btn btn-secondary">+<!-- <i 
+              class="bi-plus-circle"></i> --></button>
+          </div>
+        </td>
+        <button class="btn btn-danger" (click)="supprimer(p)">Delete</button>
+        <td>{{p.price*p.quantity}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{s}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-end">
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-5 mx-5" (click)="update()">Passer la commande</button>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Commande passée avec succès!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,136 @@
+<button (click)="clear()" data-bs-toggle="modal" data-bs-target="#ajoutModal" class="btn btn-secondary m-5" style="position: fixed;top:2vh;right: 0;">Ajouter</button>
+<div class="table-responsive col-auto m-5">
+    <table #dataTable class="table table-secondary table-striped">
+        <!-- <table class="table table-striped"> -->
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Categorie</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          <!-- </table>           -->
+    </table>
+</div>
+<div class="modal" id="ajoutModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ADD ARTICLE</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+          <form class="card bg-secondary text-white p-5 " [formGroup]="fg" (ngSubmit)="submit()">
+              <label class="form-label">Name:</label>
+              <input [ngClass]="{'is-invalid':name.dirty && name.invalid && name.value!=''}" class="form-control mt-1 mb-3" formControlName="name"/>
+              <label class="form-label">Description:</label>
+              <textarea [ngClass]="{'is-invalid':description.dirty && description.invalid && description.value!=''}" class="form-control mt-1 mb-3" formControlName="description"></textarea>
+              <label class="form-label">Price:</label>
+              <input type="number" [ngClass]="{'is-invalid':price.dirty && price.invalid && price.value!=''}" class="form-control mt-1 mb-3" formControlName="price"/>
+              <label class="form-label">Categorie</label>
+              <select class="form-control mt-1 mb-3" formControlName="categorie">
+                <option *ngFor="let p of cat" [value]="p.name">{{p.name}}</option>
+              </select>
+              <label class="form-label">Full Description:</label>
+              <editor [init]="editorConfig" formControlName="fulldescription"></editor>
+              <label class="form-label">Image:</label>
+              <input (change)="onFileSelected($event)" accept="image/jpeg" type="file" [ngClass]="{'is-invalid':image.dirty && image.invalid && image.value!=''}" class="form-control mt-1 mb-3" formControlName="image"/>
+              <label class="form-label">Images:</label>
+              <input (change)="onFileSelected2($event)" accept="image/jpeg" type="file" multiple [ngClass]="{'is-invalid':images.dirty && images.invalid && images.value!=''}" class="form-control mt-1 mb-3" formControlName="images"/>
+              <div class="row justify-content-between d-flex p-3">
+                  <button   class="btn btn-light col-5">Add</button>
+                  <button class="btn btn-light col-5" data-bs-dismiss="modal" type="button">Back</button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">DELETE ARTICLE {{id}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete {{cn}} article?</p>
+        <img src="http://localhost/images/{{ci}}" style="width: 120px; height: 120px;"/>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-light col-5" (click)="delete()">Delete</button>
+          <button class="btn btn-light col-5" data-bs-dismiss="modal" type="button">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="detailModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ARTICLE {{hid}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+         <p>Name: {{hname}}</p>
+         <p>Description: {{hdesc}}</p>
+         <p>Full description:</p>
+         <div [innerHTML]="sanitizeHtml(hfdes)"></div>
+         <p>Price: {{hprice}}</p>
+         <p>Categorie: {{hcat}}</p>
+         <p>Image:</p>
+         <img src="http://localhost/images/{{himg}}" alt="Image" style="width:120px;height:120px;">
+         <p>Images:</p>
+         <img *ngFor="let q of himgs" src="http://localhost/images/{{q}}" alt="Image m-2" style="width:120px;height:120px;">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">EDIT ARTICLE {{hid}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+          <form class="card bg-secondary text-white p-5 " [formGroup]="fg" (ngSubmit)="submit2()">
+              <label class="form-label">Name:</label>
+              <input [ngClass]="{'is-invalid':name.dirty && name.invalid}" class="form-control mt-1 mb-3" formControlName="name"/>
+              <label class="form-label">Description:</label>
+              <textarea [ngClass]="{'is-invalid':description.dirty && description.invalid}" class="form-control mt-1 mb-3" formControlName="description"></textarea>
+              <label class="form-label">Full Description:</label>
+              <editor [init]="editorConfig" formControlName="fulldescription"></editor>
+              <label class="form-label">Price:</label>
+              <input type="number" [ngClass]="{'is-invalid':price.dirty && price.invalid}" class="form-control mt-1 mb-3" formControlName="price"/>
+              <label class="form-label">Categorie</label>
+              <select class="form-control mt-1 mb-3" formControlName="categorie">
+                <option *ngFor="let p of cat" [value]="p.name">{{p.name}}</option>
+              </select>
+              <label class="form-label">Image:</label>
+              <div *ngIf="test1">
+                <img src="http://localhost/images/{{himg}}" alt="Image" style="width:120px;height:120px;"/>
+                <button type="button" class="btn btn-danger mx-2" (click)="del1()">delete</button>
+              </div>
+              <input *ngIf="!test1" (change)="onFileSelected($event)" accept="image/jpeg" type="file" [ngClass]="{'is-invalid':image.dirty && image.invalid}" class="form-control mt-1 mb-3" formControlName="image"/>
+              <label class="form-label">Images:</label>
+              <div *ngFor="let q of himgs">
+                <img src="http://localhost/images/{{q}}" alt="Image" style="width:120px;height:120px;">
+                <button type="button" class="btn btn-danger mx-2" (click)="del2(q)">delete</button>
+              </div>
+              <input (change)="onFileSelected2($event)" accept="image/jpeg" type="file" multiple [ngClass]="{'is-invalid':images.dirty && images.invalid}" class="form-control mt-1 mb-3" formControlName="images"/>
+              <div class="row justify-content-between d-flex p-3">
+                  <button   class="btn btn-light col-5" >Edit</button>
+                  <button class="btn btn-light col-5" data-bs-dismiss="modal" type="button">Back</button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

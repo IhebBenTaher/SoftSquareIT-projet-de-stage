@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="card mx-4" style="width: 18rem;">
+        <img class="card-img-top" style="height: 210px;" src="http://localhost/images/{{a.image}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{a.name}}</h5>
+            <p class="card-text">{{a.description}}</p>
+            <p class="card-text">{{a.price}}$</p>
+            <div class="d-flex justify-content-between">
+                <button routerLink="/edit/{{id}}" class="btn btn-primary" style="width:40%;">Edit</button>
+                <button (click)="delete()" class="btn btn-primary" style="width:40%;">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

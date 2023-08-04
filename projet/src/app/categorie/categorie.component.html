@@ -1,0 +1,100 @@
+<button (click)="clear()" data-bs-toggle="modal" data-bs-target="#ajoutModal" class="btn btn-secondary m-5" style="position: fixed;top:2vh;right: 0;">Ajouter</button>
+<div class="table-responsive col-auto m-5">
+    <table #dataTable class="table table-striped table-secondary">
+        <!-- <table class="col-auto col-md-8 col-lg-9"> -->
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          <!-- </table>           -->
+    </table>
+</div>
+<div class="modal" id="ajoutModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">ADD CATEGORY</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <form class="card bg-secondary text-white p-5 " [formGroup]="fg" (ngSubmit)="submit()">
+                <label class="form-label">Name:</label>
+                <input [ngClass]="{'is-invalid':name.dirty && name.invalid && name.value!=''}" class="form-control mt-1 mb-3" formControlName="name"/>
+                <label class="form-label">Image:</label>
+                <input (change)="onFileSelected($event)" accept="image/jpeg" type="file" [ngClass]="{'is-invalid':image.dirty && image.invalid && image.value!=''}" class="form-control mt-1 mb-3" formControlName="image"/>
+                <div class="row justify-content-between d-flex p-3">
+                    <button [disabled]="fg.invalid" class="btn btn-light col-5">Add</button>
+                    <button class="btn btn-light col-5" data-bs-dismiss="modal" type="button">Back</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">DELETE CATEGORY {{id}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete {{cn}} category?</p>
+            <img src="http://localhost/images/{{himg}}" style="width: 120px; height: 120px;"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light col-5" (click)="delete()">Delete</button>
+            <button class="btn btn-light col-5" data-bs-dismiss="modal" type="button">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="editModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">EDIT CATEGORY {{id}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <form class="card bg-secondary text-white p-5 " [formGroup]="fg" (ngSubmit)="submit2()">
+                <label class="form-label">Name:</label>
+                <input [ngClass]="{'is-invalid':name.dirty && name.invalid}" class="form-control mt-1 mb-3" formControlName="name"/>
+                <label class="form-label">Image:</label>
+              <div *ngIf="test1">
+                <img src="http://localhost/images/{{himg}}" alt="Image" style="width:120px;height:120px;"/>
+                <button type="button" class="btn btn-danger mx-2" (click)="del1()">delete</button>
+              </div>
+              <input *ngIf="!test1" (change)="onFileSelected($event)" accept="image/jpeg" type="file" [ngClass]="{'is-invalid':image.dirty && image.invalid}" class="form-control mt-1 mb-3" formControlName="image"/>
+                <div class="row justify-content-between d-flex p-3">
+                    <button [disabled]="fg.invalid" class="btn btn-light col-5">Edit</button>
+                    <button class="btn btn-light col-5" data-bs-dismiss="modal" type="button">Back</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="detailModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">CATEGORY {{id}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+           <p>Name: {{nc}}</p>
+           <p>Image:</p>
+           <img src="http://localhost/images/{{himg}}" alt="Image" style="width:120px;height:120px;">
+           <p>Articles:</p>
+           <p *ngFor="let h of art">{{h}}</p>
+        </div>
+      </div>
+    </div>
+  </div>

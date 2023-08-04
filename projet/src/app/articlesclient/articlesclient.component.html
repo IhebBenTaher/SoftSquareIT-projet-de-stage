@@ -1,0 +1,16 @@
+<div class="container pt-5">
+    <div class="d-flex flex-wrap justify-content-center">
+        <div class="mx-3 mb-5" *ngFor="let l of tab">
+            <div class="card shadow" style="width: 16rem;">
+                <div class="center">
+                    <img style="height: 280px;" class="card-img-top" src="http://localhost/images/{{l.image}}" alt="Image"/>    
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{l.name}}</h4>
+                    <h4 class="card-title">{{l.price}}</h4>
+                    <button (click)="showArticle(l.id)" class="btn btn-info">More details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

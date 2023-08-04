@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center align-items-center my-5">
+    <div class="container align-items-center justify-content-center d-flex flex-column">
+        <div class="card bg-light col-xl-6 col-sm-12 mb-5">
+            <div class="row no-gutters">
+                <div class="col-sm-5">
+                    <img class="card-img" src="assets/admin.png" alt="Suresh Dasari Card">
+                </div>
+                <div class="col-sm-7">
+                    <div class="card-body">
+                        <h5>Username: {{un}}</h5>
+                        <h5>Roles: {{ur}}</h5>
+                        <button type="button" (click)="switch()" class="btn btn-primary">Editer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form *ngIf="form" method="post" class="card bg-dark text-white p-5 col-xl-6 col-sm-12" [formGroup]="fg" (ngSubmit)="submit()">
+            <label class="form-label">Username</label>
+            <input [ngClass]="{'is-invalid':username.dirty && username.invalid && username.value!=''}" class="form-control mt-3 mb-5" formControlName="username"/>
+            <label class="form-label">Lastname</label>
+            <input [ngClass]="{'is-invalid':lastname.dirty && lastname.invalid && lastname.value!=''}" class="form-control mt-3 mb-5" formControlName="lastname"/>
+            <label class="form-label">Password</label>
+            <input type="password" [ngClass]="{'is-invalid':password.dirty && password.invalid && password.value!=''}" class="form-control mt-3 mb-5" formControlName="password"/>
+            <label class="form-label">Confirm Password</label>
+            <input type="password" [ngClass]="{'is-invalid':confirmPassword.dirty && (confirmPassword.invalid || confirmPassword.value!=password.value) && confirmPassword.value!='' }" class="form-control mt-3 mb-5" formControlName="confirmPassword"/>
+            <div class="row justify-content-between d-flex p-3">
+                <button [disabled]="fg.invalid || confirmPassword.value!=password.value" class="btn btn-light col-5">Edit</button>
+                <button (click)="clear()" type="button" class="btn btn-light col-5">Back</button>
+            </div>
+        </form>
+    </div>
+</div>

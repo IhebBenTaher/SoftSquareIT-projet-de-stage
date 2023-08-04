@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container justify-content-center d-flex">
+        <form class="card bg-dark text-white p-5 col-xl-6 col-sm-12" [formGroup]="fg" (ngSubmit)="submit()">
+            <label class="form-label">Username:</label>
+            <input [ngClass]="{'is-invalid':username.dirty && username.invalid}" class="form-control mt-3 mb-5" formControlName="username"/>
+            <label class="form-label">Password</label>
+            <input type="password" [ngClass]="{'is-invalid':password.dirty && password.invalid}" class="form-control mt-3 mb-5" formControlName="password"/>
+            <div class="row justify-content-between d-flex p-3">
+                <button [disabled]="fg.invalid" class="btn btn-light col-5">Sign in</button>
+                <button class="btn btn-light col-5" routerLink="/register" type="button">Sign up</button>
+            </div>
+        </form>
+    </div>
+</div>
